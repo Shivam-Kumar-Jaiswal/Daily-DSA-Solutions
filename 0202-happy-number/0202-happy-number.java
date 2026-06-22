@@ -1,14 +1,13 @@
 class Solution {
-    public boolean isHappy(int n) {
+    int r;public boolean isHappy(int n) {
        //1st way 
-      /* int llow=n,fast=n;
+    int llow=n,fast=n;
        do{
           llow=sum(llow);
           fast=sum(sum(fast));
        }while(fast!=llow);
-       if(llow==1)
-            return true;
-       return false;
+       return llow==1;
+
     }
      int sum(int n){
         r=0;
@@ -17,7 +16,7 @@ class Solution {
             n/=10;
         }
         return r;
-    */
+    /*
     HashMap<Integer,Boolean> h = new HashMap<>();
     h.put(n,true);
     while(true){
@@ -33,7 +32,7 @@ class Solution {
         h.put(r,true);
         n=r;
 
-    }
+    }*/
     }
 }
 
