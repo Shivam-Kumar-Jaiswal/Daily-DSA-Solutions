@@ -15,7 +15,11 @@ class Solution {
                 list.push(asteroids[i]);
             }
         }
-        return list.stream().mapToInt(i->i).toArray();
+        int l = list.size();
+        int[] arr = new int[l];
+        for(int i=l-1;i>=0;i--){
+            arr[i]=list.pop();
+        }return arr;
     }
 }
 
