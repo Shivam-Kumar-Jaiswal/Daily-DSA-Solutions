@@ -4,14 +4,14 @@ class Solution {
         double max=-1000000;
         for(int i=0;i<nums.length;i++){
             if(i<k){
-                sum+=nums[i]/(double)k;
+                sum+=nums[i];;
             }
             else{
                 max=Math.max(max,sum);
-                sum+=(nums[i]-nums[i-k])/(double)k;
+                sum+=(nums[i]-nums[i-k]);
             }
         }
-        return Math.max(max,sum);
+        return Math.max(max,sum)/(double)k;
     }
 }
 
