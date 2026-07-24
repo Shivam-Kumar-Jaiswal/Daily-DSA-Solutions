@@ -1,11 +1,11 @@
 class Solution {
     public int reverseBits(int n) {
-        int p = 1;
+        
         int s=0;
         for(int i=0;i<32;i++){
-            if((n&p)==p)
-            s+= 1<<(31-i);
-            p=p<<1;
+            if((n&(1<<i))!=0)
+            s|= 1<<(31-i);
+            
 
         }
         return s;
