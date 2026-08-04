@@ -17,7 +17,8 @@ class Solution {
         }
         int[] d = new int[n];
         Arrays.fill(d,Integer.MAX_VALUE);
-        PriorityQueue<Pair> p = new PriorityQueue<>((a,b)->Integer.compare(a.dist,b.dist));
+        //PriorityQueue<Pair> p = new PriorityQueue<>((a,b)->Integer.compare(a.dist,b.dist));
+        Queue<Pair> p = new LinkedList<>();
         p.offer(new  Pair(src,0,0));
         int min=Integer.MAX_VALUE;
         int[][] arr = new int[n][2];
