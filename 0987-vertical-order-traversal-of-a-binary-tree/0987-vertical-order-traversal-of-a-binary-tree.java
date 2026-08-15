@@ -15,43 +15,43 @@
  */
 class Solution {
     class Pair{
-        int r;
-        int c;
+        int r,c;
         TreeNode temp;
-        Pair(int r,int c, TreeNode t){
+        Pair(int c,int r,TreeNode temp){
             this.r = r;
-            this.c =c;
-            this.temp = t;
+            this.c = c;
+            this.temp = temp;
         }
     }
     public List<List<Integer>> verticalTraversal(TreeNode root) {
-        TreeMap<Integer,TreeMap<Integer,PriorityQueue<Integer>>> map = new TreeMap<>();
+        TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> tree = new TreeMap<>();
         Queue<Pair> q = new LinkedList<>();
         q.offer(new Pair(0,0,root));
-        while(!q.isEmpty()){
-            Pair cur = q.poll();
-            map.putIfAbsent(cur.c,new TreeMap<>());
-            map.get(cur.c).putIfAbsent(cur.r,new PriorityQueue<>());
-            map.get(cur.c).get(cur.r).add(cur.temp.val);
-            if(cur.temp.left!=null){
-                q.offer(new Pair(cur.r+1,cur.c-1,cur.temp.left));
-            }
-            if(cur.temp.right!=null){
-                q.offer(new Pair(cur.r+1,cur.c+1,cur.temp.right));
-            }
-        }
-        List<List<Integer>> l = new ArrayList<>();
-        for(TreeMap<Integer,PriorityQueue<Integer>> t : map.values()){
-            List<Integer> list = new ArrayList<>();
 
-            for(PriorityQueue<Integer> q1: t.values()){
-                while(!q1.isEmpty()){
-                    list.add(q1.poll());
-                }
-            }
-            l.add(list);
+        while(!q.isEmpty()){
+
+            Pair p = q.poll();
+            int c = p.c;
+
+            tree.putIfAbsent(c,new TreeMap<>());
+            TreeMap<Integer, PriorityQueue<Integer>> t = tree.get(c);
+            t.putIfAbsent(p.r,new PriorityQueue<>());
+            PriorityQueue<Integer> cu = t.get(p.r);
+            cu.offer(p.temp.val);
+            if(p.temp.left!=null)
+            q.offer(new Pair(c-1,p.r+1,p.temp.left));
+            if(p.temp.right!=null)
+            q.offer(new Pair(c+1,p.r+1,p.temp.right));
         }
-        return l;
+        List<List<Integer>> list = new ArrayList<>();
+        for(TreeMap<Integer,PriorityQueue<Integer>> t: tree.values()){
+            List<Integer> li = new ArrayList<>();
+            for(PriorityQueue<Integer> p : t.values()){
+                while(!p.isEmpty())
+                li.add(p.poll());
+            }
+            list.add(li);
+        }return list;
     }
 }
 
