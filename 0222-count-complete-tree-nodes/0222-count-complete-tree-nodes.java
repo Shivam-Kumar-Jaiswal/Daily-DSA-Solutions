@@ -17,28 +17,28 @@ class Solution {
     public int countNodes(TreeNode root) {
         if(root==null)
         return 0;
-        int l=heightLeft(root.left);
-        int r=heightRight(root.right);
-        if(l==r)
-        return (1<<(l+1))-1;
-        l=countNodes(root.left);
-        r=countNodes(root.right);
+        int l=findLeftHeight(root.left);
+        int r=findRightHeight(root.right);
+        System.out.print(root.val+" LeftHeight :"+l+" RightHeight :"+r);
+        if(l==r){
+            System.out.print(" l == r"+(2*(1<<l)-2+1));
+            return 2*(1<<l)-2+1;
+        }
+        l = countNodes(root.left);
+        r = countNodes(root.right);
+        System.out.println(root.val+" "+l+r+1);
         return l+r+1;
-    }int heightLeft(TreeNode root){
-        int c=0;
-        while(root!=null){
-            root=root.left;
-            c++;
-        }
-        return c;   
+       
     }
-    int heightRight(TreeNode root){
-        int c=0;
-        while(root!=null){
-            root=root.right;
-            c++;
-        }
-        return c;
+    int findLeftHeight(TreeNode root){
+        if(root==null)
+        return 0;
+        return findLeftHeight(root.left)+1;
+    }
+    int findRightHeight(TreeNode root){
+        if(root==null)
+        return 0;
+        return findRightHeight(root.right)+1;
     }
 }
 
