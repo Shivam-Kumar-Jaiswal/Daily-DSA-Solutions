@@ -9,64 +9,57 @@
  */
 class Solution {
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-        if(k==0)
-        return new ArrayList<>(List.of(target.val));
-        Queue<TreeNode> q = new LinkedList<>();
         List<Integer> list = new ArrayList<>();
-        HashMap<TreeNode,TreeNode> map = new HashMap<>();
-        HashMap<TreeNode,Boolean> vis = new HashMap<>();
+        if(root==null)return list;
+        if(k==0)return new ArrayList<>(List.of(target.val));
+        HashMap<TreeNode, TreeNode> map = new HashMap<>();
+        HashMap<TreeNode , Boolean> vis = new HashMap<>();
+
         helper(root,map);
+        vis.put(target,true);
+        Queue<TreeNode> q = new LinkedList<>();
         q.offer(target);
         vis.put(target,true);
         while(!q.isEmpty()){
             int l=q.size();
             k--;
-            
             for(int i=0;i<l;i++){
                 TreeNode cur = q.poll();
-                TreeNode p=map.get(cur);
-                if(!vis.containsKey(p)&&p!=null){
-                    if(k==0)
-                    list.add(p.val);
+                if(map.containsKey(cur)&&!vis.containsKey(map.get(cur))){
+                    if(k==0)list.add(map.get(cur).val);
                     else{
-                        q.offer(p);
-                        vis.put(p,true);
+                        q.offer(map.get(cur));
+                        vis.put(map.get(cur),true);
                     }
                 }
-                if(!vis.containsKey(cur.left)&&cur.left!=null){
-                    if(k==0)
-                    list.add(cur.left.val);
+                if(cur.left!=null&&!vis.containsKey(cur.left)){
+                    if(k==0)list.add(cur.left.val);
                     else{
                         q.offer(cur.left);
                         vis.put(cur.left,true);
                     }
                 }
-                if(!vis.containsKey(cur.right)&&cur.right!=null){
-                    if(k==0){
-                        list.add(cur.right.val);
-                    }
+                if(cur.right!=null&&!vis.containsKey(cur.right)){
+                    if(k==0)list.add(cur.right.val);
                     else{
                         q.offer(cur.right);
                         vis.put(cur.right,true);
-                    }
                 }
             }
         }
+        }
         return list;
+
     }
     void helper(TreeNode root,HashMap<TreeNode,TreeNode> map){
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        while(!q.isEmpty()){
-            TreeNode cur=q.poll();
-            if(cur.left!=null){
-                map.put(cur.left,cur);
-                q.offer(cur.left);
-            }
-            if(cur.right!=null){
-                map.put(cur.right,cur);
-                q.offer(cur.right);
-            }
+        if(root==null)return;
+        if(root.left!=null){
+            map.put(root.left,root);
+            helper(root.left,map);
+        }
+        if(root.right!=null){
+            map.put(root.right,root);
+            helper(root.right,map);
         }
     }
 }
