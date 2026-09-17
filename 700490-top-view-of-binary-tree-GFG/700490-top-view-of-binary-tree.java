@@ -12,36 +12,34 @@ class Node {
 */
 class Solution {
     class Pair{
-        int c;
+        int r,c;
         Node temp;
-        Pair(int c,Node t){
-            this.c=c;
-            this.temp=t;
+        Pair(int c,Node temp){
+            this.c = c;
+            this.temp = temp;
         }
     }
     public ArrayList<Integer> topView(Node root) {
         // code here
-        ArrayList<Integer> arr = new ArrayList<>();
-        TreeMap<Integer,Integer> h = new TreeMap<>();
         Queue<Pair> q = new LinkedList<>();
         q.offer(new Pair(0,root));
+        TreeMap<Integer,Integer> map = new TreeMap<>();
         while(!q.isEmpty()){
-            Pair p = q.poll();
-            h.putIfAbsent(p.c,p.temp.data);
-            if(p.temp.left!=null){
-                q.offer(new Pair(p.c-1,p.temp.left));
+            Pair cur = q.poll();
+            map.putIfAbsent(cur.c,cur.temp.data);
+            if(cur.temp.left!=null){
+                q.offer(new Pair(cur.c-1,cur.temp.left));
             }
-            if(p.temp.right!=null){
-                q.offer(new Pair(p.c+1,p.temp.right));
+            if(cur.temp.right!=null){
+                q.offer(new Pair(cur.c+1,cur.temp.right));
             }
         }
-        ArrayList<Integer> list = new ArrayList<>();
-        for(Integer e : h.values()){
-            list.add(e);
+        ArrayList<Integer> arr = new ArrayList<>();
+        for(Integer i : map.values()){
+            arr.add(i);
         }
-        return list;
+        return arr;
     }
-    
 }
 
 // Synced seamlessly with LeetHub Pro
